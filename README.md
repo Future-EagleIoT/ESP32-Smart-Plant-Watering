@@ -2,6 +2,27 @@
 
 ESP32-based smart plant watering system using ESP RainMaker for cloud control, BLE provisioning, automatic irrigation based on soil moisture, and OTA updates.
 
+## Architecture
+
+Below are the recommended architecture diagrams and a short summary of each area. Add the provided diagrams to `docs/` and name them `architecture_firmware.png` and `architecture_system.png` to have them render inline below.
+
+### Firmware Architecture
+![Firmware Architecture](docs/firmware%20architecture.png)
+
+Summary:
+- Application Layer: irrigation logic, scheduling engine, safety rules and user commands.
+- Service Layer: MQTT/service broker integration, OTA update service, sensor manager, relay controller, notification and storage services.
+- HAL / Drivers: GPIO, ADC, WiFi, NVS/Flash, RTC/Timers drivers.
+- Hardware Layer: soil moisture, water level sensors, pump/relay, LEDs and power supply.
+
+### Complete System Architecture
+![System Architecture](docs/complete%20architecture.png)
+
+Summary:
+- Data Flow: sensors -> ESP32 -> publish to MQTT -> cloud/backend -> dashboard/app -> user.
+- Firmware Workflow: boot -> sensor read -> decision engine -> pump control -> communication (telemetry/commands) -> OTA & logging.
+- Wiring Example: shows typical connections for soil sensor, water level sensor, ESP32 DevKit, relay module and pump.
+
 ## Features
 - Automatic watering using soil moisture thresholds
 - Manual control via cloud (ESP RainMaker) or voice assistants
@@ -65,36 +86,16 @@ The sketch starts BLE provisioning using the `service_name` and `pop` configured
 ## Diagnostics
 - Serial prints moisture percentage periodically. Use this to verify sensor readings and thresholds.
 
+### Additional Notes
+- MQTT Topics (example): `futureeagleiot/device001/sensor/moisture`, `.../pump/status`, `.../control`.
+- OTA Flow: new firmware available -> download -> verify -> install -> reboot.
+- Security: use TLS for MQTT, signed OTA images, secure provisioning POP, and least-privilege access for cloud services.
+
 ## License
 This project is licensed under the Apache 2.0 License — see the `LICENSE` file.
 
 ## Contributing
 Feel free to open issues or PRs to improve documentation, add platform support, or enhance features.
 
-## Architecture
 
-Below are the recommended architecture diagrams and a short summary of each area. Add the provided diagrams to `docs/` and name them `architecture_firmware.png` and `architecture_system.png` to have them render inline below.
 
-### Firmware Architecture
-![Firmware Architecture](docs/firmware%20architecture.png)
-
-Summary:
-- Application Layer: irrigation logic, scheduling engine, safety rules and user commands.
-- Service Layer: MQTT/service broker integration, OTA update service, sensor manager, relay controller, notification and storage services.
-- HAL / Drivers: GPIO, ADC, WiFi, NVS/Flash, RTC/Timers drivers.
-- Hardware Layer: soil moisture, water level sensors, pump/relay, LEDs and power supply.
-
-### Complete System Architecture
-![System Architecture](docs/complete%20architecture.png)
-
-Summary:
-- Data Flow: sensors -> ESP32 -> publish to MQTT -> cloud/backend -> dashboard/app -> user.
-- Firmware Workflow: boot -> sensor read -> decision engine -> pump control -> communication (telemetry/commands) -> OTA & logging.
-- Wiring Example: shows typical connections for soil sensor, water level sensor, ESP32 DevKit, relay module and pump.
-
-### Additional Notes
-- MQTT Topics (example): `futureeagleiot/device001/sensor/moisture`, `.../pump/status`, `.../control`.
-- OTA Flow: new firmware available -> download -> verify -> install -> reboot.
-- Security: use TLS for MQTT, signed OTA images, secure provisioning POP, and least-privilege access for cloud services.
-
-If you want, I can add the two architecture images to `docs/` for you (saved as `architecture_firmware.png` and `architecture_system.png`).

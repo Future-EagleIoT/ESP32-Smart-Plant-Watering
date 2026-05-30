@@ -76,7 +76,7 @@ Feel free to open issues or PRs to improve documentation, add platform support, 
 Below are the recommended architecture diagrams and a short summary of each area. Add the provided diagrams to `docs/` and name them `architecture_firmware.png` and `architecture_system.png` to have them render inline below.
 
 ### Firmware Architecture
-![Firmware Architecture](docs/architecture_firmware.png)
+![Firmware Architecture](docs/firmware%20architecture.png)
 
 Summary:
 - Application Layer: irrigation logic, scheduling engine, safety rules and user commands.
@@ -85,7 +85,7 @@ Summary:
 - Hardware Layer: soil moisture, water level sensors, pump/relay, LEDs and power supply.
 
 ### Complete System Architecture
-![System Architecture](docs/architecture_system.png)
+![System Architecture](docs/complete%20architecture.png)
 
 Summary:
 - Data Flow: sensors -> ESP32 -> publish to MQTT -> cloud/backend -> dashboard/app -> user.

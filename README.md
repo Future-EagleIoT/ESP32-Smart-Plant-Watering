@@ -4,7 +4,7 @@ ESP32-based smart plant watering system using ESP RainMaker for cloud control, B
 
 ## Architecture
 
-Below are the recommended architecture diagrams and a short summary of each area. Add the provided diagrams to `docs/` and name them `architecture_firmware.png` and `architecture_system.png` to have them render inline below.
+Below are the recommended architecture diagrams and a short summary of each area.
 
 ### Firmware Architecture
 ![Firmware Architecture](docs/firmware%20architecture.png)
